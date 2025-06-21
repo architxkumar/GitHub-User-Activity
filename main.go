@@ -33,7 +33,8 @@ func main() {
 		log.Fatal("Unable to close response body.\n", err.Error())
 	}
 }
-func printPublicUserEvents(responseBody io.ReadCloser) {
+
+func parseResponseBody(responseBody io.ReadCloser) []model.Event {
 	body, err := io.ReadAll(responseBody)
 	if err != nil {
 		log.Fatal("Unable to read response body.\n", err.Error())
@@ -43,6 +44,11 @@ func printPublicUserEvents(responseBody io.ReadCloser) {
 	if err != nil {
 		log.Fatal("Unable to parse JSON.\n", err.Error())
 	}
+	return eventArray
+}
+
+func printPublicUserEvents(responseBody io.ReadCloser) {
+	eventArray := parseResponseBody(responseBody)
 	if len(eventArray) == 0 {
 		fmt.Println("No events found")
 	}
