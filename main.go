@@ -1,10 +1,8 @@
 package main
 
 import (
-	"GitHub-User-Activity/internal/model"
-	"encoding/json"
+	"GitHub-User-Activity/internal/helper"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 	"os"
@@ -22,6 +20,10 @@ func main() {
 	if err != nil {
 		fmt.Println("Error connecting to GitHub\n", err.Error())
 		os.Exit(1)
+	}
+	parsedResponseBody, err := helper.ParseResponseBody(response.Body)
+	if err != nil {
+		fmt.Println("Error parsing response body\n", err.Error())
 	}
 	switch response.StatusCode {
 	case 200:
