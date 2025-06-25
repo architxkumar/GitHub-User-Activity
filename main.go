@@ -13,13 +13,15 @@ import (
 func main() {
 	arguments := os.Args
 	if len(arguments) != 2 {
-		fmt.Println("Invalid number of arguments")
+		fmt.Println("Invalid command usage: Invalid number of arguments")
+		os.Exit(1)
 	}
 	username := arguments[1]
 	url := fmt.Sprintf("https://api.github.com/users/%s/events", username)
 	response, err := http.Get(url)
 	if err != nil {
-		log.Fatal("Unable to connect to Github.\n", err.Error())
+		fmt.Println("Error connecting to GitHub\n", err.Error())
+		os.Exit(1)
 	}
 	switch response.StatusCode {
 	case 200:
