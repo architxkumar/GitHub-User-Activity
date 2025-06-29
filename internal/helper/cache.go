@@ -9,10 +9,10 @@ import (
 	"time"
 )
 
-// WriteToFile writes parsed HTTP response body to local file for caching.
+// WriteToCache writes parsed HTTP response body to local file for caching.
 // If the file doesn't exist, it creates a new file else overwrites the file content
 // with the updated content
-func WriteToFile(username string, content []model.Event, fileName string) error {
+func WriteToCache(username string, content []model.Event, fileName string) error {
 	var output []byte
 	newEntry := model.UserActivity{
 		Username:  username,
